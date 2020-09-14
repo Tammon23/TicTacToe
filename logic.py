@@ -1,40 +1,84 @@
-from board import Board
+# from board import Board
 
 
-class Logic(Board):
+class Logic():
     def __init__(self):
-        self.winner = None
         pass
 
-    def checkHorizontalWinCase(self):
+    def checkRowWinCase(self, icon, loc):
         """
         Checks if a player has won on the horizontal axis of the game
-        if a winner was chosen, then
-        :return boolean: if there is a winner returns a True, otherwise false
+        if a winner was chosen, then returns True else False
+        :param icon: The icon associated to a player
+        :param loc: The cell number of the board where the last move was placed
+        :return boolean:
         """
-        for row in self.board:
-            if row.count(row[0]) == self.boardSize:
-                self.winner = row[0]
-                return True
 
-        return False
+        x, _ = self.get_array_position(loc)
+        for cell in self.board[x]:
+            if icon != cell:
+                return False
 
-    def checkVerticalWinCase(self):
+        return True
+
+    def checkColumnWinCase(self, icon, loc):
         """
         Checks if a player has won on the vertical axis of the game
-        if a winner was chosen, then
-        :return boolean: if there is a winner returns a True, otherwise false
+        if a winner was chosen, then returns True else False
+        :param icon: The icon associated to a player
+        :param loc: The cell number of the board where the last move was placed
+        :return boolean:
         """
-        for row in range(len(self.board)):
-            start =
-            for col in range(len(self.board[row])):
 
+        _, y = self.get_array_position(loc)
 
+        for r in range(self.boardSize):
+            if icon != self.board[r][y]:
+                return False
 
-            if self.board[row].count(self.board[row][0]) == self.boardSize:
-                return True
+        return True
 
-        return False
+    def checkTopLeftBottomRightDiagonalCase(self, icon, loc):
+        """
+        Determines if there is a winning case on the top left to bottom right
+        diagonal of the board
+        :param icon: The icon associated to a player
+        :param loc: The cell number of the board where the last move was placed
+        :return boolean:
+        """
+        x, y = self.get_array_position(loc)
+
+        # making sure the icon is on the diagonal first
+        if x == y:
+            for i in range(self.boardSize):
+                if self.board[x][y] != icon:
+                    return False
+
+            return True
+
+        else:
+            return False
+
+    def checkTopRightBottomLeftDiagonalCase(self, icon, loc):
+        """
+        Determines if there is a winning case on the top right to bottom left
+        diagonal of the board
+        :param icon: The icon associated to a player
+        :param loc: The cell number of the board where the last move was placed
+        :return boolean:
+        """
+        x, y = self.get_array_position(loc)
+
+        # making sure the icon is on the diagonal first
+        if x + y == self.boardSize:
+            for i in range(self.boardSize):
+                if self.board[i][self.boardSize - i] != icon:
+                    return False
+
+            return True
+
+        else:
+            return False
 
     def checkFullBoard(self):
         return len(self.remainingCells) == 0
