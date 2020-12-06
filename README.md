@@ -3,7 +3,7 @@ A console version of TicTacToe including ultimate TicTacToe (3d TicTacToe). Even
 friends and discord because why not.
 
 Currently Includes/Will Include
-1. Optional character nameing
+1. Optional character naming
 2. Allowed for custom symbols
 3. Adjustable TicTacToe grid size (for both modes)
 4. An AI player for both modes
